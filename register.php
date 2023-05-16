@@ -94,7 +94,7 @@
                     </div>
                 </form>
 
-                <div class="alert alert-success alert-dismissible fade show d-none mt-3" role="alert" id="success-alert">
+                <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="success-alert">
                     <strong id="success-msg"></strong>
                     <button type="button" class="btn-close" id="btn-close-success"></button>
                 </div>

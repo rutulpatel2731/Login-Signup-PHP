@@ -78,18 +78,32 @@ $(document).ready(function () {
                 contentType: false,
                 success: function (data) {
 
-                    if(JSON.parse(data).register == 1){
-                        $("#email-error").html(JSON.parse(data).message);
-                    }else if (JSON.parse(data).success == "true") {
+                    // if (JSON.parse(data).register == 1) {
+                    //     $("#email-error").html(JSON.parse(data).message);
+                    // } else {
+                    //     if (JSON.parse(data).success == "true") {
+                    //         $("#success-alert").removeClass("d-none");
+                    //         $("#success-msg").html(JSON.parse(data).message);
+                    //         $("#email-error").addClass('d-none');
+                    //         $("#form").trigger("reset");
+                    //     } else {
+                    //         $("#error-alert").removeClass("d-none");
+                    //         $("#error-msg").html(JSON.parse(data).message);
+                    //     }
+                    // }
+                    var data = JSON.parse(data);
+                    if (data.success == "true") {
                         $("#success-alert").removeClass("d-none");
-                        $("#success-msg").html(JSON.parse(data).message);
+                        $("#success-msg").html(data.message);
                         $("#email-error").addClass('d-none');
                         $("#form").trigger("reset");
                     } else {
                         $("#error-alert").removeClass("d-none");
-                        $("#error-msg").html(JSON.parse(data).message);
+                        $("#error-msg").html(data.message);
                     }
-                       console.log(data);
+
+
+                    console.log(data);
                 }
             })
         }
