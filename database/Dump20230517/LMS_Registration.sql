@@ -32,8 +32,9 @@ CREATE TABLE `Registration` (
   `hobbies` text,
   `profile` varchar(233) DEFAULT NULL,
   `CreatedAt` timestamp NULL DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +43,7 @@ CREATE TABLE `Registration` (
 
 LOCK TABLES `Registration` WRITE;
 /*!40000 ALTER TABLE `Registration` DISABLE KEYS */;
-INSERT INTO `Registration` VALUES (1,'Rutul Sheladiya','8320893080','rutulsheladiya2@gmail.com','$2y$10$3Uu.truzjTjn0KCxcdVLLeKIHwbQhNdnx68Orj0JjOjioALbUQCWO','male','cricket,chess,','Screenshot from 2023-05-12 10-35-56.png','2023-05-16 15:04:28'),(2,'Mukund','8320893080','mukund@gmail.com','$2y$10$cXhtEC3wv7DJScuwb3tNge4LOr9ovV7YpaerOulQQvkEeC7JNS6UC','male','chess,','2.jpg','2023-05-16 15:31:13');
+INSERT INTO `Registration` VALUES (1,'Rutul Sheladiya','8320893080','rutulsheladiya2@gmail.com','$2y$10$vDt2a5wLVJtm4xSRDRvm0uBfBLvIDvs0qeLsGrimOZ0VjQVSfMTa6','male','cricket,chess,','Screenshot from 2023-05-17 14-28-11.png','2023-05-17 14:04:58',1),(2,'Ravi Mandani','8963214785','ravimandani@gmail.com','$2y$10$Cab4Z1O0onJTfPCwRWmVPemTJlCwbDXRMpRYWv3L/amq0Dutp3bga','male','cricket,chess,','Screenshot from 2023-05-16 18-55-52.png','2023-05-17 14:05:15',1),(3,'Purvish ','7412369850','purvishdhameliya@gmail.com','$2y$10$JJmy3hQ99XOE6nn/jPV8oOp4QGnOTHNMSu7XA1z/WfI4oJ12GKzHO','male','cricket,chess,','Screenshot from 2023-05-17 14-28-11.png','2023-05-17 14:05:34',1),(4,'Sumit','9632147855','sumitrajput@gmail.com','$2y$10$25uaANXR9FYvx1HrfXUucum2zzna0Lt9mYwHxQS6cO0hwnEWEdUC.','male','chess,football,','Screenshot from 2023-05-17 14-49-46.png','2023-05-17 14:06:00',1);
 /*!40000 ALTER TABLE `Registration` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-16 21:03:32
+-- Dump completed on 2023-05-17 20:18:19

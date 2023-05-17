@@ -5,6 +5,7 @@ if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] != "true") {
     header("location:login.php");
 }
 $id = $_SESSION['id'];
+// die($id);
 $sql = "select * from Registration where id='$id'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);

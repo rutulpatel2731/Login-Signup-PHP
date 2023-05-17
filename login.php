@@ -28,14 +28,31 @@ session_start();
                     <div class="form-group my-2">
                         <label for="" class="py-2">Enter Email Id</label>
                         <input type="email" placeholder="Enter Email Id" name="email" class="form-control">
-                        <div id="email-error" style="color:red"><?php if(isset($_SESSION['msg'])){
-                            echo $_SESSION['msg'];
-                        } ?></div>
+                        <div id="email-error" style="color:red"><?php if (isset($_SESSION['msg'])) {
+                                                                    echo $_SESSION['msg'];
+                                                                    unset($_SESSION['msg']);
+                                                                } ?></div>
                     </div>
                     <div class="form-group my-2">
                         <label for="" class="py-2">Enter Password</label>
                         <input type="password" placeholder="Enter Password" name="password" class="form-control">
                     </div>
+                    <?php
+                        if (isset($_SESSION["counter"])) {
+                            if($_SESSION["counter"] >= 3) {
+                                echo "<div class='captcha-div mb-3'><img src='captcha.php' alt='captcha'><input type='text' name='captcha' id='captcha'></div>";
+                            } else {
+                                echo $_SESSION["counter"]." Attempts";
+                            }
+                        }
+
+                        if (isset($_SESSION["captcha_error"])) {
+                            echo '<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert" id="error-alert">
+                              <strong id="error-msg">' . $_SESSION["captcha_error"] . ' </strong>
+                              <button type="button" class="btn-close" id="btn-close-error"></button></div>';
+                            unset($_SESSION["captcha_error"]);
+                        }
+                    ?>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                     </div>
@@ -48,15 +65,8 @@ session_start();
                 if (isset($_SESSION["showError"])) {
                     echo '<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert" id="error-alert">
                       <strong id="error-msg">' . $_SESSION["showError"] . ' </strong>
-                      <button type="button" class="btn-close" id="btn-close-error"></button>';
+                      <button type="button" class="btn-close" id="btn-close-error"></button></div>';
                     unset($_SESSION["showError"]);
-                }
-
-                echo $_SESSION["counter"];
-
-                if (isset($_SESSION["msg"])) {
-                    echo  $_SESSION['msg'];
-                    unset($_SESSION['msg']);
                 }
                 ?>
 

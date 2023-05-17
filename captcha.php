@@ -1,4 +1,5 @@
 <?php
+session_start();
 $random_num    = md5(random_bytes(64));
 $captcha_code  = substr($random_num, 0, 6);
 $_SESSION['CAPTCHA_CODE'] = $captcha_code;
