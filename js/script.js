@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-
+    // register data
     $("#form").on("submit", function (e) {
         e.preventDefault();
         jQuery('#form').validate({
@@ -77,20 +77,6 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (data) {
-
-                    // if (JSON.parse(data).register == 1) {
-                    //     $("#email-error").html(JSON.parse(data).message);
-                    // } else {
-                    //     if (JSON.parse(data).success == "true") {
-                    //         $("#success-alert").removeClass("d-none");
-                    //         $("#success-msg").html(JSON.parse(data).message);
-                    //         $("#email-error").addClass('d-none');
-                    //         $("#form").trigger("reset");
-                    //     } else {
-                    //         $("#error-alert").removeClass("d-none");
-                    //         $("#error-msg").html(JSON.parse(data).message);
-                    //     }
-                    // }
                     var data = JSON.parse(data);
                     if (data.success == "true") {
                         $("#success-alert").removeClass("d-none");
@@ -110,10 +96,88 @@ $(document).ready(function () {
 
     })
 
+
+    // forgot password
+    $("#forgotpassword").on("submit", function (e) {
+        e.preventDefault();
+        jQuery('#forgotpassword').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+                mobile: {
+                    required: true,
+                    minlength: 10
+                },
+
+                password: {
+                    required: true,
+                    minlength: 5,
+                },
+                rpassword: {
+                    required: true,
+                    equalTo: "#password",
+                },
+            },
+            messages: {
+                email: {
+                    required: "Please Enter Email Address..",
+                    email: "Please Enter Valid Email Address..",
+                },
+                mobile: {
+                    required: "Please Enter Mobile Number.",
+                },
+                password: {
+                    required: "Please Enter Password..",
+                    minlength: "Password Must be 5 Character long...",
+                },
+                rpassword: {
+                    required: "Please Enter The Confirm Password..",
+                    equalTo: "Please Enter the same password as above.",
+                },
+            },
+            errorPlacement: function (error, element) {
+                if (element.is(":checkbox")) {
+                    error.appendTo('.hobbie');
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+        })
+        if ($("#forgotpassword").valid()) {
+            $.ajax({
+                url: 'forgotpassword-query.php',
+                type: "POST",
+                data: {
+                    email: $("#email").val(),
+                    mobile: $("#mobile").val(),
+                    password: $("#password").val(),
+                    rpassword: $("#rpassword").val()
+                },
+                success: function (data) {
+                    //console.log(data)
+                    var returnData = JSON.parse(data)
+                    if (returnData.status == "error") {
+                        $("#error-alert").removeClass('d-none');
+                        $("#error-msg").html(returnData.message)
+                    } else {
+                        $("#success-alert").removeClass('d-none');
+                        $("#success-msg").html(returnData.message)
+                        $("#forgotpassword").trigger("reset");
+                    }
+                }
+            })
+        }
+
+
+    });
+
+    //    alerts
     $("#btn-close-success").on("click", function () {
-        $(".alert").addClass('d-none');
+        $("#success-alert").addClass('d-none');
     })
     $("#btn-close-error").on("click", function () {
-        $(".alert").addClass('d-none');
+        $("#error-alert").addClass('d-none');
     })
 })

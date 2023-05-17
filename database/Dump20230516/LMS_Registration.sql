@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `LMS` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `LMS`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Linux (x86_64)
 --
 -- Host: localhost    Database: LMS
 -- ------------------------------------------------------
--- Server version	8.0.33-0ubuntu0.22.04.1
+-- Server version	8.0.33-0ubuntu0.22.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,8 +31,9 @@ CREATE TABLE `Registration` (
   `gender` varchar(20) DEFAULT NULL,
   `hobbies` text,
   `profile` varchar(233) DEFAULT NULL,
+  `CreatedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +42,7 @@ CREATE TABLE `Registration` (
 
 LOCK TABLES `Registration` WRITE;
 /*!40000 ALTER TABLE `Registration` DISABLE KEYS */;
-INSERT INTO `Registration` VALUES (1,'Dheno','645645','rutul@simformsolutions.com','111','male','cricket,','Screenshot from 2023-05-12 09-55-43.png'),(2,'Dheno','645645','rutul@simformsolutions.com','222','male','cricket,Chess,Football,Music,','Screenshot from 2023-05-12 10-20-05.png'),(3,'Mukund','645645','rutul@simformsolutions.com','222','male','cricket,','third'),(4,'Dheno','645645','rutul@simformsolutions.com','111','male','cricket,Chess,Football,','Screenshot from 2023-05-12 09-59-37.png'),(5,'Dheno2','645645','rutul@simformsolutions.com','111','male','cricket,','second'),(6,'Dheno','645645','rutul@simformsolutions.com','111','male','cricket,','Screenshot from 2023-05-12 10-23-31.png'),(7,'Dheno','645645','rutul@simformsolutions.com','111','male','cricket,','Screenshot from 2023-05-12 10-23-18.png');
+INSERT INTO `Registration` VALUES (1,'Rutul Sheladiya','8320893080','rutulsheladiya2@gmail.com','$2y$10$3Uu.truzjTjn0KCxcdVLLeKIHwbQhNdnx68Orj0JjOjioALbUQCWO','male','cricket,chess,','Screenshot from 2023-05-12 10-35-56.png','2023-05-16 15:04:28'),(2,'Mukund','8320893080','mukund@gmail.com','$2y$10$cXhtEC3wv7DJScuwb3tNge4LOr9ovV7YpaerOulQQvkEeC7JNS6UC','male','chess,','2.jpg','2023-05-16 15:31:13');
 /*!40000 ALTER TABLE `Registration` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-15 19:45:32
+-- Dump completed on 2023-05-16 21:03:32

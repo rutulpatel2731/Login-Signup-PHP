@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"]= "POST"){
           }else{
             // echo "Password Are Not Match.";
             //  $_SESSION['password'] = "Password Are Not Match.";
-             
+
           }
       }
     }else{
