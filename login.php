@@ -1,31 +1,5 @@
 <?php
-$login = false;
-$showError = false;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include_once 'connection/connection.php';
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $sql = "select * from Registration where email='$email'";
-    $result = mysqli_query($conn, $sql);
-    $num = mysqli_num_rows($result);
-    if ($num == 1) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            if (password_verify($password, $row['password'])) {
-                $login = true;
-                session_start();
-                $_SESSION['loggedin'] = true;
-                $_SESSION['id'] = $row['id'];
-                $_SESSION['name'] = $row['name'];
-                header("location:welcome.php");
-            } else {
-                $showError = "Password Are Not Match.";
-            }
-        }
-    } else {
-        $showError = "This Email Is Not Registered";
-    }
-}
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,39 +24,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="row d-flex align-item-center justify-content-center">
             <div class="col-md-6">
-                <form action="<?php $_SERVER["PHP_SELF"] ?>" method="POST">
+                <form action="logindata.php" method="POST">
                     <div class="form-group my-2">
                         <label for="" class="py-2">Enter Email Id</label>
                         <input type="email" placeholder="Enter Email Id" name="email" class="form-control">
-                        <div id="email-error" style="color:red"></div>
+                        <div id="email-error" style="color:red"><?php if(isset($_SESSION['msg'])){
+                            echo $_SESSION['msg'];
+                        } ?></div>
                     </div>
                     <div class="form-group my-2">
                         <label for="" class="py-2">Enter Password</label>
                         <input type="password" placeholder="Enter Password" name="password" class="form-control">
                     </div>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                     </div>
                     <div class="float-end mt-3">
                         <a href="forgotpassword.php">Forgot Password</a>
                     </div>
                 </form>
 
-
                 <?php
-                if ($login) {
-                    echo ' <div class="alert alert-success alert-dismissible fade show mt-5" role="alert" id="error-alert">
-                    <strong ></strong> You are logged in
-                    <button type="button" class="btn-close" id="btn-close-error"></button>
-                </div>';
+                if (isset($_SESSION["showError"])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert" id="error-alert">
+                      <strong id="error-msg">' . $_SESSION["showError"] . ' </strong>
+                      <button type="button" class="btn-close" id="btn-close-error"></button>';
+                    unset($_SESSION["showError"]);
                 }
-                if ($showError) {
-                    echo ' <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert" id="error-alert">
-                    <strong ></strong>' . $showError . '
-                    <button type="button" class="btn-close" id="btn-close-error"></button>
-                </div>';
+
+                echo $_SESSION["counter"];
+
+                if (isset($_SESSION["msg"])) {
+                    echo  $_SESSION['msg'];
+                    unset($_SESSION['msg']);
                 }
                 ?>
+
             </div>
         </div>
     </section>
@@ -91,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="js/jquery.js"></script>
     <!-- bootstrap Js -->
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 
