@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['id'] = $data['id'];
                 $_SESSION['name'] = $data['name'];
-                header("location:welcome.php");
+                header("location:pages/welcome.php");
             } else {
                 $emailCount = "select email from email_log WHERE email='$email'";
                 $emailResult = mysqli_query($conn, $emailCount);

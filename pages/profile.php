@@ -1,8 +1,9 @@
 <?php
 session_start();
-require_once 'connection/connection.php';
+require_once '../connection/connection.php';
 if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] != "true") {
-    header("location:login.php");
+    $_SESSION['accessFail'] = "Access Denied";
+    header("location:../login.php");
 }
 $id = $_SESSION['id'];
 // die($id);
@@ -20,14 +21,14 @@ $row = mysqli_fetch_assoc($result);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <!-- custom css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 
 <body>
     <?php
-    include_once 'navbar/navbar.php';
+    include_once '../navbar/navbar.php';
     ?>
 
     <div class="container mt-5">
@@ -37,7 +38,7 @@ $row = mysqli_fetch_assoc($result);
                 <form action="">
                 <div class="form-group mb-3">
                         <label for="" class="pb-2">Profile</label><br>
-                       <img width="100px" height="100px" src="./upload/<?php echo $row['profile'];?>"  alt="">
+                       <img width="100px" height="100px" src="../upload/<?php echo $row['profile'];?>"  alt="">
                     </div>
                     <div class="form-group  mb-3">
                         <label for="" class="pb-2">Name</label>
@@ -80,9 +81,9 @@ $row = mysqli_fetch_assoc($result);
     </div>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="../js/jquery.js"></script>
     <!-- bootstrap Js -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

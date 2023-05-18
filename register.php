@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +25,14 @@
         <div class="row d-flex align-item-center justify-content-center">
             <div class="col-md-6">
                 <form action="" id="form" enctype="multipart/form-data">
+                    <?php
+                    if (isset($_SESSION['accessFail'])) {
+                        echo '<div class="alert alert-danger alert-dismissible fade show mb-3" role="alert" id="error-alert">
+    <strong>' . $_SESSION["accessFail"] . ' </strong>
+    <button type="button" class="btn-close" id="btn-close-error"></button></div>';
+                        unset($_SESSION['accessFail']);
+                    }
+                    ?>
                     <div class="form-group my-2">
                         <label for="" class="py-2">Enter Name</label>
                         <input type="text" placeholder="Enter Name" name="uname" id="uname" class="form-control">

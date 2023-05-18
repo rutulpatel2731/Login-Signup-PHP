@@ -17,9 +17,6 @@ echo '
 
 if (!$login) {
     echo '<li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="welcome.php">Home</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="register.php">Register</a>
             </li>
             <li class="nav-item">
@@ -30,8 +27,16 @@ if (!$login) {
 if ($login) {
     echo '
     <li class="nav-item">
+    <a class="nav-link" href="welcome.php">Home</a>
+</li>
+    <li class="nav-item">
                     <a class="nav-link" href="profile.php">Profile</a>
     </li>
+
+    <li class="nav-item">
+                    <a class="nav-link" href="profile.php">Crud</a>
+    </li>
+
     <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>';

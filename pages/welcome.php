@@ -1,7 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
-    header('location:login.php');
+    $_SESSION['accessFail'] = "Access Denied";
+    header('location:../login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -13,13 +14,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- custom css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 
 <body>
-    <?php include_once 'navbar/navbar.php' ?>
+    <?php include_once '../navbar/navbar.php' ?>
     <div class="container mt-5">
         <div class="alert alert-success" role="alert">
             <h4 class="alert-heading">Welcome ! <?php echo $_SESSION['name'] ?></h4>
@@ -29,7 +30,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
         </div>
     </div>
     <!-- bootstrap Js -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
