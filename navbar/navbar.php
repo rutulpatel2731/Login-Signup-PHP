@@ -34,7 +34,7 @@ if ($login) {
     </li>
 
     <li class="nav-item">
-                    <a class="nav-link" href="profile.php">Crud</a>
+                    <a class="nav-link" href="crud.php">Crud</a>
     </li>
 
     <li class="nav-item">
