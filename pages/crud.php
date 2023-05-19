@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once '../connection/connection.php';
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     $_SESSION['accessFail'] = "Access Denied";
     header('location:../login.php');
@@ -30,7 +31,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                 <form action="" id="form" enctype="multipart/form-data">
                     <div class="form-group my-2">
                         <label for="" class="py-2">Enter Name</label>
-                        <input type="text" placeholder="Enter Name" name="name" class="form-control">
+                        <input type="text" placeholder="Enter Name" name="name" id="name" class="form-control" value="">
                         <div id="error"></div>
                     </div>
 
@@ -52,7 +53,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="other" value="other">
+                            <input class="form-check-input" type="radio" name="gender" id="gender" value="other">
                             <label class="form-check-label" for="">Other</label>
                         </div>
                     </div>
@@ -60,13 +61,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                     <div class="form-group my-2">
                         <label for="" class="py-2">Select Profile Picture</label>
                         <input type="file" name="profile" id="profile" class="form-control" onchange="previewImage()">
-                        <div class="imagePreviewbtn">
+
+                        <div>
+                            <button id="cancleImage">X</button>
                             <div>
-                                <button id="cancleImage">X</button>
+                             <img id="preview" height="150px" width="150px" class="mt-5" />
                             </div>
-                            <img id="preview" height="150px" width="150px" class="mt-5" />
                         </div>
+                       
                     </div>
+
 
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary" id="submit">Submit</button>
@@ -85,23 +89,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
 
 
         <div id="table-data" class="mt-5">
-            <!-- <table class="table table-responsive" border="1">
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Mobile Number</th>
-                    <th>Gender</th>
-                    <th>Image</th>
-                    <th>Created At</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
-            </table> -->
+
         </div>
     </section>
 

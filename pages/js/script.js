@@ -60,17 +60,16 @@ $(document).ready(function () {
 
     // delete data
     $(document).on("click", ".deletebtn", function () {
-        var eid = $(this).data("uid");
-        window.location.href("action.php?id="+eid);
+        var did = $(this).data("did");
         // console.log(eid);
         bootbox.confirm("Are you sure you want to delete record ??? ", function (result) {
             if (result) {
                 $.ajax({
                     url: "deletedata.php",
                     type: "POST",
-                    data: { empid: eid },
+                    data: { empid: did },
                     success: function (returnData) {
-                        //console.log(returnData);
+                        console.log(returnData);
                         var data = JSON.parse(returnData);
                         if (data.status == "success") {
                             $("#success-alert").removeClass('d-none');
@@ -88,6 +87,31 @@ $(document).ready(function () {
 
 
 
+    //update data
+    $(document).on("click",".updatebtn",function(){
+        var sId  = $(this).data("uid");
+        // console.log(sId);
+        $.ajax({
+            url : "update-fetch.php",
+            type : "POST",
+            data : {studentId : sId},
+            success : function(returnData){
+                console.log(returnData);
+                var data = JSON.parse(returnData);
+                let gender = data.gender;
+                $("#name").val(data.name);
+                $("#mobileno").val(data.mobileno);
+                // $("input[name='gender']:checked").val(data.gender);
+                $("input[name='gender'][value=" + gender + "]").prop('checked', true);
+                $("#preview").attr("src","./upload/" + data.image)
+                $("#preview").show();
+                $("#cancleImage").show();
+                // var imgElement = $("<img>").attr("src","./upload/", data.image);
+                // $("#profile").after(imgElement);
+            }
+
+        })
+    })
 });
 
 
