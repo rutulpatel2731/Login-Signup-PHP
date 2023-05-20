@@ -1,23 +1,31 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     // insert data
-    $("#form").on("submit", function (e) {
+    $("#form").on("submit", function(e) {
         e.preventDefault();
+        var token = $("#userId").val();
+        // console.log(token)
+        if (token != 'null') {
+            var up = 'updatedata-query.php';
+        } else {
+            var up = 'insert_data.php';
+        }
         $.ajax({
-            url: 'insert_data.php',
+            url: up,
             type: 'POST',
             data: new FormData(this),
             processData: false,
             contentType: false,
-            success: function (returnData) {
-                // console.log(data)
+            success: function(returnData) {
+                console.log(returnData)
                 var data = JSON.parse(returnData);
                 if (data.status == "success") {
                     $("#success-alert").removeClass('d-none');
                     $("#success-msg").html(data.message);
-                    $("#preview").hide();
-                    $("#cancleImage").hide()
+                    $("#image-preview").hide();
                     $("#form").trigger("reset");
+                    $("#insertBtn").show();
+                    $("#updateDataBtn").hide();
                     loadTableData();
                 } else {
                     $("#error-alert").removeClass('d-none');
@@ -27,19 +35,18 @@ $(document).ready(function () {
         })
     })
 
-    $("#btn-close-success").on("click", function () {
+    // alert button 
+    $("#btn-close-success").on("click", function() {
         $("#success-alert").addClass('d-none');
     })
-    $("#btn-close-error").on("click", function () {
+    $("#btn-close-error").on("click", function() {
         $("#error-alert").addClass('d-none');
     })
 
-    // cancle button
-    $("#cancleImage").on("click", function (e) {
+    // image close button onclick
+    $("#cancleImage").on("click", function(e) {
         e.preventDefault();
-        //  console.log("sdfds");
-        $("#preview").hide();
-        $("#cancleImage").hide();
+        $("#image-preview").hide();
         $("#profile").val("");
     })
 
@@ -49,7 +56,7 @@ $(document).ready(function () {
         $.ajax({
             url: "fetch_data.php",
             type: "POST",
-            success: function (returnData) {
+            success: function(returnData) {
                 // console.log(returnData);
                 $("#table-data").html(returnData);
             }
@@ -59,16 +66,16 @@ $(document).ready(function () {
 
 
     // delete data
-    $(document).on("click", ".deletebtn", function () {
+    $(document).on("click", ".deletebtn", function() {
         var did = $(this).data("did");
         // console.log(eid);
-        bootbox.confirm("Are you sure you want to delete record ??? ", function (result) {
+        bootbox.confirm("Are you sure you want to delete record ??? ", function(result) {
             if (result) {
                 $.ajax({
                     url: "deletedata.php",
                     type: "POST",
                     data: { empid: did },
-                    success: function (returnData) {
+                    success: function(returnData) {
                         console.log(returnData);
                         var data = JSON.parse(returnData);
                         if (data.status == "success") {
@@ -88,30 +95,34 @@ $(document).ready(function () {
 
 
     //update data
-    $(document).on("click",".updatebtn",function(){
-        var sId  = $(this).data("uid");
-        // console.log(sId);
-        $.ajax({
-            url : "update-fetch.php",
-            type : "POST",
-            data : {studentId : sId},
-            success : function(returnData){
-                console.log(returnData);
-                var data = JSON.parse(returnData);
-                let gender = data.gender;
-                $("#name").val(data.name);
-                $("#mobileno").val(data.mobileno);
-                // $("input[name='gender']:checked").val(data.gender);
-                $("input[name='gender'][value=" + gender + "]").prop('checked', true);
-                $("#preview").attr("src","./upload/" + data.image)
-                $("#preview").show();
-                $("#cancleImage").show();
-                // var imgElement = $("<img>").attr("src","./upload/", data.image);
-                // $("#profile").after(imgElement);
-            }
+    $(document).on("click", ".updatebtn", function() {
+            var sId = $(this).data("uid");
+            // console.log(sId);
+            $.ajax({
+                url: "update-fetch.php",
+                type: "POST",
+                data: { studentId: sId },
+                success: function(returnData) {
+                    // console.log(returnData);
+                    var data = JSON.parse(returnData);
+                    let gender = data.gender;
+                    $("#userId").val(data.id)
+                    $("#name").val(data.name);
+                    $("#mobileno").val(data.mobileno);
+                    $("input[name='gender'][value=" + gender + "]").prop('checked', true);
+                    $("#profile").attr("value", data.image);
+                    // Display the image preview
+                    $("#preview").attr("src", "./upload/" + data.image);
 
+                    // Hide or show the preview buttons
+                    $("#image-preview").show();
+                    $("#cancleImage").hide();
+                    // Hide & show Insert update buttons
+                    $("#insertBtn").hide();
+                    $("#updateDataBtn").show();
+                }
+            })
         })
-    })
+        // hide update button bydefault
+    $("#updateDataBtn").hide();
 });
-
-

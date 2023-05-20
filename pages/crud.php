@@ -30,6 +30,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
             <div class="col-md-6">
                 <form action="" id="form" enctype="multipart/form-data">
                     <div class="form-group my-2">
+                    <input type="hidden" name="userId" id="userId" class="form-control" value="null">
                         <label for="" class="py-2">Enter Name</label>
                         <input type="text" placeholder="Enter Name" name="name" id="name" class="form-control" value="">
                         <div id="error"></div>
@@ -62,18 +63,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         <label for="" class="py-2">Select Profile Picture</label>
                         <input type="file" name="profile" id="profile" class="form-control" onchange="previewImage()">
 
-                        <div>
-                            <button id="cancleImage">X</button>
-                            <div>
-                             <img id="preview" height="150px" width="150px" class="mt-5" />
-                            </div>
+                        <div class="image-preview mt-5" id="image-preview">
+                             <button id="cancleImage">X</button>
+                             <img id="preview" src=""/>
                         </div>
-                       
                     </div>
-
+ 
 
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="insertBtn">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="updateDataBtn">Update</button>
                     </div>
                 </form>
 
@@ -105,9 +104,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     <script src="js/script.js"></script>
     <script>
         // hide image preview bydefault
-        $(document).ready(function() {
-            $("#preview").hide();
-            $("#cancleImage").hide()
+        $(document).ready(function(){
+            $("#image-preview").hide();
         })
         // image preview
         function previewImage() {
@@ -121,8 +119,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
 
             if (file) {
                 reader.readAsDataURL(file);
-                $("#preview").show()
-                $("#cancleImage").show()
+                $("#image-preview").show();
             } else {
                 preview.src = "";
             }

@@ -1,6 +1,7 @@
 <?php
 include_once '../connection/connection.php';
 
+
 $name = $_POST['name'];
 $mobile = $_POST['mobileno'];
 $gender = $_POST['gender'];
