@@ -30,7 +30,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
             <div class="col-md-6">
                 <form action="" id="form" enctype="multipart/form-data">
                     <div class="form-group my-2">
-                    <input type="hidden" name="userId" id="userId" class="form-control" value="null">
+                        <input type="hidden" name="userId" id="userId" class="form-control" value="null">
                         <label for="" class="py-2">Enter Name</label>
                         <input type="text" placeholder="Enter Name" name="name" id="name" class="form-control" value="">
                         <div id="error"></div>
@@ -41,34 +41,37 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         <input type="text" placeholder="Enter Mobile Number" name="mobileno" id="mobileno" class="form-control">
                     </div>
 
-                    <div class="form-group my-3">
-                        <label for="" class="me-4">Gender</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="gender" value="male" checked>
-                            <label class="form-check-label" for="">Male</label>
-                        </div>
+                    <div class="Gender">
+                        <div class="form-group my-3 ">
+                            <label for="" class="me-4">Gender</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="male">
+                                <label class="form-check-label" for="">Male</label>
+                            </div>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="gender" value="female">
-                            <label class="form-check-label" for="">Female</label>
-                        </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="female">
+                                <label class="form-check-label" for="">Female</label>
+                            </div>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="gender" value="other">
-                            <label class="form-check-label" for="">Other</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="other">
+                                <label class="form-check-label" for="">Other</label>
+                            </div>
                         </div>
                     </div>
+
 
                     <div class="form-group my-2">
                         <label for="" class="py-2">Select Profile Picture</label>
                         <input type="file" name="profile" id="profile" class="form-control" onchange="previewImage()">
 
                         <div class="image-preview mt-5" id="image-preview">
-                             <button id="cancleImage">X</button>
-                             <img id="preview" src=""/>
+                            <button id="cancleImage">X</button>
+                            <img id="preview" src="" />
                         </div>
                     </div>
- 
+
 
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary" id="insertBtn">Submit</button>
@@ -100,13 +103,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     <script src="../js/jquery.js"></script>
     <!-- bootbox -->
     <script src="js/bootbox.min.js"></script>
+    <!-- jQuery Validaation Plugin -->
+    <script src="../js/jquery.validate.min.js.js"></script>
+    <!-- additional methos  -->
+    <script src="../js/additional-methods.js"></script>
     <!-- Custom Js -->
     <script src="js/script.js"></script>
     <script>
-        // hide image preview bydefault
-        $(document).ready(function(){
-            $("#image-preview").hide();
-        })
         // image preview
         function previewImage() {
             var preview = document.querySelector('#preview');

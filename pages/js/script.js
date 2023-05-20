@@ -3,36 +3,75 @@ $(document).ready(function() {
     // insert data
     $("#form").on("submit", function(e) {
         e.preventDefault();
-        var token = $("#userId").val();
-        // console.log(token)
-        if (token != 'null') {
-            var up = 'updatedata-query.php';
-        } else {
-            var up = 'insert_data.php';
-        }
-        $.ajax({
-            url: up,
-            type: 'POST',
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            success: function(returnData) {
-                console.log(returnData)
-                var data = JSON.parse(returnData);
-                if (data.status == "success") {
-                    $("#success-alert").removeClass('d-none');
-                    $("#success-msg").html(data.message);
-                    $("#image-preview").hide();
-                    $("#form").trigger("reset");
-                    $("#insertBtn").show();
-                    $("#updateDataBtn").hide();
-                    loadTableData();
-                } else {
-                    $("#error-alert").removeClass('d-none');
-                    $("#error-msg").html(data.message);
+        jQuery('#form').validate({
+            rules: {
+                name: "required",
+                mobileno: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                gender: {
+                    required: true,
+                },
+                profile: {
+                    accept: "jpg,jpeg,png,gif"
                 }
-            }
+            },
+            messages: {
+                name: "Please Enter Name..",
+                mobile: {
+                    required: "Please Enter Mobile Number.",
+                    number: "Please enter number only.."
+                },
+                gender: {
+                    required: "Please Select Gender..",
+                },
+                profile: {
+                    accept: "Only Support JPEG/JPG/PNG format.."
+                }
+            },
+            errorPlacement: function(error, element) {
+                if (element.is(":radio")) {
+                    error.appendTo('.Gender');
+                } else {
+                    error.insertAfter(element);
+                }
+            },
         })
+        if ($("#form").valid()) {
+            var token = $("#userId").val();
+            // console.log(token)
+            if (token != 'null') {
+                var link = 'updatedata-query.php';
+            } else {
+                var link = 'insert_data.php';
+            }
+            $.ajax({
+                url: link,
+                type: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(returnData) {
+                    console.log(returnData)
+                    var data = JSON.parse(returnData);
+                    if (data.status == "success") {
+                        $("#success-alert").removeClass('d-none');
+                        $("#success-msg").html(data.message);
+                        $("#image-preview").hide();
+                        $("#form").trigger("reset");
+                        $("#insertBtn").show();
+                        $("#updateDataBtn").hide();
+                        loadTableData();
+                    } else {
+                        $("#error-alert").removeClass('d-none');
+                        $("#error-msg").html(data.message);
+                    }
+                }
+            })
+        }
     })
 
     // alert button 
@@ -125,4 +164,6 @@ $(document).ready(function() {
         })
         // hide update button bydefault
     $("#updateDataBtn").hide();
+    // default hide image preview
+    $("#image-preview").hide();
 });

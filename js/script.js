@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     // register data
-    $("#form").on("submit", function (e) {
+    $("#form").on("submit", function(e) {
         e.preventDefault();
         jQuery('#form').validate({
             rules: {
@@ -60,7 +60,7 @@ $(document).ready(function () {
                     accept: "Only Support JPEG/JPG/PNG format.."
                 }
             },
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 if (element.is(":checkbox")) {
                     error.appendTo('.hobbie');
                 } else {
@@ -76,7 +76,7 @@ $(document).ready(function () {
                 data: new FormData(this),
                 processData: false,
                 contentType: false,
-                success: function (data) {
+                success: function(data) {
                     var data = JSON.parse(data);
                     if (data.success == "true") {
                         $("#success-alert").removeClass("d-none");
@@ -98,7 +98,7 @@ $(document).ready(function () {
 
 
     // forgot password
-    $("#forgotpassword").on("submit", function (e) {
+    $("#forgotpassword").on("submit", function(e) {
         e.preventDefault();
         jQuery('#forgotpassword').validate({
             rules: {
@@ -137,7 +137,7 @@ $(document).ready(function () {
                     equalTo: "Please Enter the same password as above.",
                 },
             },
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 if (element.is(":checkbox")) {
                     error.appendTo('.hobbie');
                 } else {
@@ -155,7 +155,7 @@ $(document).ready(function () {
                     password: $("#password").val(),
                     rpassword: $("#rpassword").val()
                 },
-                success: function (data) {
+                success: function(data) {
                     //console.log(data)
                     var returnData = JSON.parse(data)
                     if (returnData.status == "error") {
@@ -174,10 +174,10 @@ $(document).ready(function () {
     });
 
     //    alerts
-    $("#btn-close-success").on("click", function () {
+    $("#btn-close-success").on("click", function() {
         $("#success-alert").addClass('d-none');
     })
-    $("#btn-close-error").on("click", function () {
+    $("#btn-close-error").on("click", function() {
         $("#error-alert").addClass('d-none');
     })
 })
