@@ -40,5 +40,22 @@
 
 .table-img {
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
+}
+
+#gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    position: relative;
+    margin: 10px;
+}
+
+.image-container>img {
+    width: 150px;
+    height: 150px;
+    padding: 10px;
 }

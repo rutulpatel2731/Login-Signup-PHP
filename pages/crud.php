@@ -67,7 +67,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         <input type="file" name="profile[]" id="profile" class="form-control" multiple>
 
                         <div class="main d-none" id="main">
-                         <div class="gallery">
+                         <div class="gallery" id="gallery">
+                            <!-- <img src="" alt="" id="preview" class="d-none"> -->
                          </div>
                         </div>
                     </div>
@@ -75,7 +76,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
 
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary" id="insertBtn">Submit</button>
-                        <button type="submit" class="btn btn-primary" id="updateDataBtn">Update</button>
+                        <button type="submit" class="btn btn-primary d-none" id="updateDataBtn">Update</button>
                     </div>
                 </form>
 

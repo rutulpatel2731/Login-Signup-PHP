@@ -56,20 +56,20 @@ $(document).ready(function() {
                 contentType: false,
                 success: function(returnData) {
                     console.log(returnData)
-                    var data = JSON.parse(returnData);
-                    if (data.status == "success") {
-                        $("#success-alert").removeClass('d-none');
-                        $("#success-msg").html(data.message);
-                        // $("#image-preview").hide();
-                        $("#form").trigger("reset");
-                        $("#insertBtn").show();
-                        $("#updateDataBtn").hide();
-                        $("#main").addClass('d-none');
-                        loadTableData();
-                    } else {
-                        $("#error-alert").removeClass('d-none');
-                        $("#error-msg").html(data.message);
-                    }
+                        // var data = JSON.parse(returnData);
+                        // if (data.status == "success") {
+                        //     $("#success-alert").removeClass('d-none');
+                        //     $("#success-msg").html(data.message);
+                        //     $("#main").addClass('d-none');
+                        //     $("#form").trigger("reset");
+                        //     $("#insertBtn").show();
+                        //     $("#updateDataBtn").hide();
+                        //     $("#main").addClass('d-none');
+                        //     loadTableData();
+                        // } else {
+                        //     $("#error-alert").removeClass('d-none');
+                        //     $("#error-msg").html(data.message);
+                        // }
                 }
             })
         }
@@ -135,7 +135,7 @@ $(document).ready(function() {
 
 
     //update data
-    // $(document).on("click", ".updatebtn", function() {
+    // $(document).on("click", "#updatebtn", function() {
     //         var sId = $(this).data("uid");
     //         // console.log(sId);
     //         $.ajax({
@@ -145,24 +145,60 @@ $(document).ready(function() {
     //             success: function(returnData) {
     //                 // console.log(returnData);
     //                 var data = JSON.parse(returnData);
-    //                 let gender = data.gender;
-    //                 $("#userId").val(data.id)
-    //                 $("#name").val(data.name);
-    //                 $("#mobileno").val(data.mobileno);
+    //                 console.log(data);
+    //                 let gender = data[0].gender;
+    //                 $("#userId").val(data[0].userid);
+    //                 $("#name").val(data[0].name);
+    //                 $("#mobileno").val(data[0].mobileno);
     //                 $("input[name='gender'][value=" + gender + "]").prop('checked', true);
-    //                 $("#profile").attr("value", data.image);
-    //                 // Display the image preview
-    //                 $("#preview").attr("src", "./upload/" + data.image);
+    //                 // $("#profile").attr("value", data.image);
+    //                 // // Display the image preview
+    //                 var img = document.createElement("img");
+    //                 img.src = "./upload/" + data[1][1];
+    //                 var previewContainer = document.getElementById("gallery");
+    //                 previewContainer.appendChild(img);
+    //                 // $("#preview").attr("src", "./upload/" + data.image[1]);
 
-    //                 // Hide or show the preview buttons
-    //                 $("#image-preview").show();
-    //                 $("#cancleImage").hide();
-    //                 // Hide & show Insert update buttons
-    //                 $("#insertBtn").hide();
-    //                 $("#updateDataBtn").show();
+    //                 // // Hide or show the preview buttons
+    //                 // $("#image-preview").show();
+    //                 // $("#cancleImage").hide();
+    //                 // // Hide & show Insert update buttons
+    //                 // $("#insertBtn").hide();
+    //                 // $("#updateDataBtn").show();
     //             }
     //         })
     //     })
-    // hide update button bydefault
-    $("#updateDataBtn").hide();
+    $(document).on("click", "#updatebtn", function() {
+        var sId = $(this).data("uid");
+        $.ajax({
+            url: "update-fetch.php",
+            type: "POST",
+            data: { studentId: sId },
+            success: function(returnData) {
+                var data = JSON.parse(returnData);
+                console.log(data);
+                let gender = data[0].gender;
+                $("#userId").val(data[0].userid);
+                $("#name").val(data[0].name);
+                $("#mobileno").val(data[0].mobileno);
+                $("input[name='gender'][value=" + gender + "]").prop('checked', true);
+
+                // Clear the previous image previews
+                $("#main").removeClass('d-none');
+                $("#gallery").empty();
+
+                // Generate image previews with cross icons
+                data[1].forEach(function(imageName) {
+                    var imgContainer = $("<div>").addClass("image-container");
+                    var img = $("<img>").attr("src", "./upload/" + imageName);
+                    imgContainer.append(img);
+                    $("#gallery").append(imgContainer);
+                });
+
+                // Show the update button and hide the insert button
+                $("#insertBtn").hide();
+                $("#updateDataBtn").removeClass('d-none');
+            }
+        });
+    });
 });
