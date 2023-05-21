@@ -2,17 +2,21 @@
 include_once '../connection/connection.php';
 
 $employeeId = $_POST['empid'];
-$query = "SELECT image FROM employee WHERE id = $employeeId";
+
+$query = "SELECT imgname FROM image WHERE userid = $employeeId";
 $result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
-$dir = "./upload/";
-$filePath = realpath($dir . $row["image"]);
+while($row = mysqli_fetch_assoc($result)){
+    // echo "<pre>";
+    // print_r($row);
+    $dir = "./upload/";
+    $filePath = realpath($dir . $row["imgname"]);
+    
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+};
 
-if (file_exists($filePath)) {
-    unlink($filePath);
-}
-
-$sql = "delete from employee where id ='$employeeId'";
+$sql = "delete from employee where userid ='$employeeId'";
 $result = mysqli_query($conn, $sql);
 if($result){
  echo json_encode(array(

@@ -64,7 +64,8 @@ $(document).ready(function() {
                         $("#form").trigger("reset");
                         $("#insertBtn").show();
                         $("#updateDataBtn").hide();
-                        // loadTableData();
+                        $("#main").addClass('d-none');
+                        loadTableData();
                     } else {
                         $("#error-alert").removeClass('d-none');
                         $("#error-msg").html(data.message);
@@ -91,45 +92,45 @@ $(document).ready(function() {
 
 
     // fetch data
-    // function loadTableData() {
-    //     $.ajax({
-    //         url: "fetch_data.php",
-    //         type: "POST",
-    //         success: function(returnData) {
-    //             // console.log(returnData);
-    //             $("#table-data").html(returnData);
-    //         }
-    //     })
-    // }
-    // loadTableData();
+    function loadTableData() {
+        $.ajax({
+            url: "fetch_data.php",
+            type: "POST",
+            success: function(returnData) {
+                //  console.log(returnData);
+                $("#table-data").html(returnData);
+            }
+        })
+    }
+    loadTableData();
 
 
     // delete data
-    // $(document).on("click", ".deletebtn", function() {
-    //     var did = $(this).data("did");
-    //     // console.log(eid);
-    //     bootbox.confirm("Are you sure you want to delete record ??? ", function(result) {
-    //         if (result) {
-    //             $.ajax({
-    //                 url: "deletedata.php",
-    //                 type: "POST",
-    //                 data: { empid: did },
-    //                 success: function(returnData) {
-    //                     console.log(returnData);
-    //                     var data = JSON.parse(returnData);
-    //                     if (data.status == "success") {
-    //                         $("#success-alert").removeClass('d-none');
-    //                         $("#success-msg").html(data.message);
-    //                         loadTableData();
-    //                     } else {
-    //                         $("#error-alert").removeClass('d-none');
-    //                         $("#error-msg").html(data.message);
-    //                     }
-    //                 }
-    //             })
-    //         }
-    //     });
-    // })
+    $(document).on("click", ".deletebtn", function() {
+        var did = $(this).data("did");
+        // console.log(eid);
+        bootbox.confirm("Are you sure you want to delete record ??? ", function(result) {
+            if (result) {
+                $.ajax({
+                    url: "deletedata.php",
+                    type: "POST",
+                    data: { empid: did },
+                    success: function(returnData) {
+                        console.log(returnData);
+                        var data = JSON.parse(returnData);
+                        if (data.status == "success") {
+                            $("#success-alert").removeClass('d-none');
+                            $("#success-msg").html(data.message);
+                            loadTableData();
+                        } else {
+                            $("#error-alert").removeClass('d-none');
+                            $("#error-msg").html(data.message);
+                        }
+                    }
+                })
+            }
+        });
+    })
 
 
 

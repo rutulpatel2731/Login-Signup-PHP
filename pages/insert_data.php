@@ -21,7 +21,7 @@ if ($result) {
     $tmpname = $_FILES["profile"]['tmp_name'][$i];
     $folder = "./upload/" . $imageName;
     move_uploaded_file($tmpname, $folder);
-    $sql = "Insert into image (name,userid) VALUES ('$imageName',$lastId)";
+    $sql = "Insert into image (imgname,userid) VALUES ('$imageName',$lastId)";
     $imgResult = mysqli_query($conn, $sql);
   }
   if ($imgResult) {

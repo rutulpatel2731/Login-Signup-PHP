@@ -37,3 +37,8 @@
     width: 22px;
     height: 22px;
 }
+
+.table-img {
+    display: flex;
+    gap: 5px;
+}
