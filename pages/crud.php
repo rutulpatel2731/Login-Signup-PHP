@@ -64,11 +64,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
 
                     <div class="form-group my-2">
                         <label for="" class="py-2">Select Profile Picture</label>
-                        <input type="file" name="profile" id="profile" class="form-control" onchange="previewImage()">
+                        <input type="file" name="profile[]" id="profile" class="form-control" multiple>
 
-                        <div class="image-preview mt-5" id="image-preview">
-                            <button id="cancleImage">X</button>
-                            <img id="preview" src="" />
+                        <div class="main d-none" id="main">
+                         <div class="gallery">
+                         </div>
                         </div>
                     </div>
 
@@ -110,23 +110,23 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     <!-- Custom Js -->
     <script src="js/script.js"></script>
     <script>
-        // image preview
-        function previewImage() {
-            var preview = document.querySelector('#preview');
-            var file = document.querySelector('#profile').files[0];
-            var reader = new FileReader();
+        var imagesPreview = function(input, placeToInsertImagePreview) {
 
-            reader.onloadend = function() {
-                preview.src = reader.result;
+            if (input.files) {
+                var filesAmount = input.files.length;
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).attr({'src' : event.target.result,'class' : 'previmage' }).appendTo(placeToInsertImagePreview);
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
             }
-
-            if (file) {
-                reader.readAsDataURL(file);
-                $("#image-preview").show();
-            } else {
-                preview.src = "";
-            }
-        }
+        };
+        $('#profile').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+            $("#main").removeClass('d-none');
+        });
     </script>
 </body>
 

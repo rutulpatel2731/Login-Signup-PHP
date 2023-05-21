@@ -9,10 +9,14 @@
     margin-top: 5px;
 }
 
-.image-preview {
+.gallery .previmage {
+    margin-top: 30px;
+}
+
+.gallery>img {
     width: 150px;
     height: 150px;
-    position: relative;
+    padding: 10px;
 }
 
 .image-preview img {
