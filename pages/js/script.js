@@ -1,7 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     // insert data
-    $("#form").on("submit", function(e) {
+    $("#form").on("submit", function (e) {
         e.preventDefault();
         // jQuery('#form').validate({
         //     rules: {
@@ -54,37 +54,36 @@ $(document).ready(function() {
                 data: new FormData(this),
                 processData: false,
                 contentType: false,
-                success: function(returnData) {
-                    console.log(returnData)
-                        // var data = JSON.parse(returnData);
-                        // if (data.status == "success") {
-                        //     $("#success-alert").removeClass('d-none');
-                        //     $("#success-msg").html(data.message);
-                        //     $("#main").addClass('d-none');
-                        //     $("#form").trigger("reset");
-                        //     $("#insertBtn").show();
-                        //     $("#updateDataBtn").hide();
-                        //     $("#main").addClass('d-none');
-                        //     loadTableData();
-                        // } else {
-                        //     $("#error-alert").removeClass('d-none');
-                        //     $("#error-msg").html(data.message);
-                        // }
+                success: function (returnData) {
+                  // console.log(returnData)
+                    var data = JSON.parse(returnData);
+                    if (data.status == "success") {
+                        $("#success-alert").removeClass('d-none');
+                        $("#success-msg").html(data.message);
+                        $("#main").addClass('d-none');
+                        $("#form").trigger("reset");
+                        $("#updateDataBtn").addClass('d-none');
+                        $("#insertBtn").removeClass('d-none');
+                        loadTableData();
+                    } else {
+                        $("#error-alert").removeClass('d-none');
+                        $("#error-msg").html(data.message);
+                    }
                 }
             })
         }
     })
 
     // alert button 
-    $("#btn-close-success").on("click", function() {
+    $("#btn-close-success").on("click", function () {
         $("#success-alert").addClass('d-none');
     })
-    $("#btn-close-error").on("click", function() {
+    $("#btn-close-error").on("click", function () {
         $("#error-alert").addClass('d-none');
     })
 
     // image close button onclick
-    $("#cancleImage").on("click", function(e) {
+    $("#cancleImage").on("click", function (e) {
         e.preventDefault();
         $("#image-preview").hide();
         $("#profile").val("");
@@ -96,7 +95,7 @@ $(document).ready(function() {
         $.ajax({
             url: "fetch_data.php",
             type: "POST",
-            success: function(returnData) {
+            success: function (returnData) {
                 //  console.log(returnData);
                 $("#table-data").html(returnData);
             }
@@ -106,16 +105,16 @@ $(document).ready(function() {
 
 
     // delete data
-    $(document).on("click", ".deletebtn", function() {
+    $(document).on("click", ".deletebtn", function () {
         var did = $(this).data("did");
         // console.log(eid);
-        bootbox.confirm("Are you sure you want to delete record ??? ", function(result) {
+        bootbox.confirm("Are you sure you want to delete record ??? ", function (result) {
             if (result) {
                 $.ajax({
                     url: "deletedata.php",
                     type: "POST",
                     data: { empid: did },
-                    success: function(returnData) {
+                    success: function (returnData) {
                         console.log(returnData);
                         var data = JSON.parse(returnData);
                         if (data.status == "success") {
@@ -168,13 +167,13 @@ $(document).ready(function() {
     //             }
     //         })
     //     })
-    $(document).on("click", "#updatebtn", function() {
+    $(document).on("click", "#updatebtn", function () {
         var sId = $(this).data("uid");
         $.ajax({
             url: "update-fetch.php",
             type: "POST",
             data: { studentId: sId },
-            success: function(returnData) {
+            success: function (returnData) {
                 var data = JSON.parse(returnData);
                 console.log(data);
                 let gender = data[0].gender;
@@ -188,7 +187,7 @@ $(document).ready(function() {
                 $("#gallery").empty();
 
                 // Generate image previews with cross icons
-                data[1].forEach(function(imageName) {
+                data[1].forEach(function (imageName) {
                     var imgContainer = $("<div>").addClass("image-container");
                     var img = $("<img>").attr("src", "./upload/" + imageName);
                     imgContainer.append(img);
@@ -196,7 +195,7 @@ $(document).ready(function() {
                 });
 
                 // Show the update button and hide the insert button
-                $("#insertBtn").hide();
+                $("#insertBtn").addClass('d-none');
                 $("#updateDataBtn").removeClass('d-none');
             }
         });

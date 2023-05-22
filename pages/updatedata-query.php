@@ -1,20 +1,30 @@
 <?php
 include_once '../connection/connection.php';
 $userid = $_POST['userId'];
-$userName = $_POST['name'];  
+$userName = $_POST['name'];
 $mobileNo = $_POST['mobileno'];
 $gender = $_POST['gender'];
+$imgName = $_FILES['profile']['name'];
+$countImage = count($imgName);
+// print_r($_FILES);
+// echo $countImage;
 
+if (($_FILES['profile']['name'][0]) !== "") {
+    $sql = "UPDATE `employee` SET `name`= '$userName',`mobileno`='$mobileNo',`gender`='$gender' WHERE userid = '$userid'";
+    $result = mysqli_query($conn, $sql);
 
-if (($_FILES['profile']['name']) !== "") {
-    // $sql = "UPDATE `employee` SET `name`=' $userName',`mobileno`='$mobileNo',`gender`='$gender',`image`='$imageName' WHERE id = $userId";
-    // $result=mysqli_query($conn,"select image from employee where id ='$userId'");
-    // $row = mysqli_fetch_assoc($result);
-    // unlink("./upload/".$row['image']);
-    // $imageName =rand().$_FILES['profile']['name'];
-    // $tmpname = $_FILES['profile']['tmp_name'];
-    // $folder = "./upload/". $imageName;
-    // move_uploaded_file($tmpname,$folder);
+    for ($i = 0; $i < $countImage; $i++) {
+        $imageName = rand() . $_FILES['profile']['name'][$i];
+        $tmpname = $_FILES['profile']['tmp_name'][$i];
+        $folder = "./upload/" . $imageName;
+        move_uploaded_file($tmpname, $folder);
+        $sql = "Insert into image (imgname,userid) VALUES ('$imageName',$userid)";
+        $imgResult = mysqli_query($conn, $sql);
+    }
+    echo json_encode(array(
+        "status" => "success",
+        "message" => "Your Record Has Been Updated."
+    ));
 } else {
     $sql = "UPDATE `employee` SET `name`= '$userName',`mobileno`='$mobileNo',`gender`='$gender' WHERE userid = '$userid'";
     $result = mysqli_query($conn, $sql);
