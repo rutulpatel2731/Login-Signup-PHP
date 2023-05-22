@@ -26,13 +26,13 @@ $(document).ready(function () {
                     number: "Please enter number only.."
                 },
                 gender: {
-                    required: "Please Select Gender..",     
+                    required: "Please Select Gender..",
                 },
                 "profile[]": {
                     accept: "Only Support JPEG/JPG/PNG format.."
                 }
             },
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 if (element.is(":radio")) {
                     error.appendTo('.Gender');
                 } else {
@@ -73,22 +73,6 @@ $(document).ready(function () {
             })
         }
     })
-
-    // alert button 
-    $("#btn-close-success").on("click", function () {
-        $("#success-alert").addClass('d-none');
-    })
-    $("#btn-close-error").on("click", function () {
-        $("#error-alert").addClass('d-none');
-    })
-
-    // image close button onclick
-    $("#cancleImage").on("click", function (e) {
-        e.preventDefault();
-        $("#image-preview").hide();
-        $("#profile").val("");
-    })
-
 
     // fetch data
     function loadTableData() {
@@ -132,7 +116,7 @@ $(document).ready(function () {
     })
 
 
-
+    // edit button ajax 
     $(document).on("click", "#updatebtn", function () {
         var sId = $(this).data("uid");
         $.ajax({
@@ -148,12 +132,9 @@ $(document).ready(function () {
                 $("#name").val(data[0].name);
                 $("#mobileno").val(data[0].mobileno);
                 $("input[name='gender'][value=" + gender + "]").prop('checked', true);
-
-                // // Clear the previous image previews
+                // for image fetch
                 $("#main").removeClass('d-none');
-                $("#gallery").empty();
-
-                // Generate image previews with cross icons
+                // create dynamic image preview
                 data[1].forEach(function (imageName) {
                     var imgId = imageName.id;
                     var imgContainer = $("<div>").addClass("image-container");
@@ -164,7 +145,6 @@ $(document).ready(function () {
                     imgContainer.append(img, cross);
                     $("#gallery").append(imgContainer);
                 });
-
                 // Show the update button and hide the insert button
                 $("#insertBtn").addClass('d-none');
                 $("#updateDataBtn").removeClass('d-none');
@@ -172,6 +152,7 @@ $(document).ready(function () {
         });
     });
 
+    // function for delete specific image at the time of edit
     function deleteImage(imgId) {
         var imageId = imgId;
         // console.log(imageId);
@@ -189,4 +170,18 @@ $(document).ready(function () {
         })
     }
 
+    // alert button 
+    $("#btn-close-success").on("click", function () {
+        $("#success-alert").addClass('d-none');
+    })
+    $("#btn-close-error").on("click", function () {
+        $("#error-alert").addClass('d-none');
+    })
+
+    // image close button onclick
+    $("#cancleImage").on("click", function (e) {
+        e.preventDefault();
+        $("#image-preview").hide();
+        $("#profile").val("");
+    })
 });

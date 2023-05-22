@@ -67,9 +67,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         <input type="file" name="profile[]" id="profile" class="form-control" multiple>
 
                         <div class="main d-none" id="main">
-                         <div class="gallery" id="gallery">
-                            <!-- <img src="" alt="" id="preview" class="d-none"> -->
-                         </div>
+                            <div class="gallery" id="gallery">
+                            </div>
                         </div>
                     </div>
 
@@ -91,9 +90,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
         </div>
 
 
-        <div id="table-data" class="mt-5">
-
-        </div>
+        <div id="table-data" class="mt-5"></div>
     </section>
 
     <!-- bootstrap js -->
@@ -118,7 +115,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                 for (i = 0; i < filesAmount; i++) {
                     var reader = new FileReader();
                     reader.onload = function(event) {
-                        $($.parseHTML('<img>')).attr({'src' : event.target.result,'class' : 'previmage' }).appendTo(placeToInsertImagePreview);
+                        $($.parseHTML('<img>')).attr({
+                            'src': event.target.result,
+                            'class': 'previmage'
+                        }).appendTo(placeToInsertImagePreview);
                     }
                     reader.readAsDataURL(input.files[i]);
                 }

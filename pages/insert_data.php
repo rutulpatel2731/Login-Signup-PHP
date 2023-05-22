@@ -17,7 +17,7 @@ if ($result) {
   $lastId =  mysqli_insert_id($conn);
   // echo $lastId;
   for ($i = 0; $i < $countImage; $i++) {
-    $imageName = rand().$_FILES["profile"]['name'][$i];
+    $imageName = rand() . $_FILES["profile"]['name'][$i];
     $tmpname = $_FILES["profile"]['tmp_name'][$i];
     $folder = "./upload/" . $imageName;
     move_uploaded_file($tmpname, $folder);

@@ -14,5 +14,3 @@ if($result){
     $_SESSION['unblock_error'] = "Something Went Wrong !! Please Try Again..";
     header('location:login.php');
 }
-
-?>

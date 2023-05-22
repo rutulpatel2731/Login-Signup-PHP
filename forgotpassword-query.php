@@ -14,9 +14,9 @@ if ($numEmail == 1) {
     // print_r($row);
     if ($row['mobileno'] === $mobileNo) {
         if ($password == $cpassword) {
-            $hash = password_hash($password,PASSWORD_DEFAULT);
+            $hash = password_hash($password, PASSWORD_DEFAULT);
             $sql = "update Registration SET password='$hash' where email='$emailId'";
-            $result = mysqli_query($conn,$sql);
+            $result = mysqli_query($conn, $sql);
             echo json_encode(array(
                 "status" => "success",
                 "message" => "Password Has Been Changed. <a href='login.php'>Click Here to Login</a>"

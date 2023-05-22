@@ -14,8 +14,7 @@ $images = mysqli_fetch_all($result,MYSQLI_ASSOC);
  
 array_push($response,$images);
 // $imageNames = explode(',', $row1["image_names"]);
-// // print_r($imageNames);   
-
+// print_r($imageNames);   
 // print_r($response);
 echo json_encode($response);
 ?>

@@ -9,7 +9,7 @@ $result = mysqli_query($conn, $sql);
 
 $output = "";
 if (mysqli_num_rows($result) > 0) {
-    $output = '<table class="table table-responsive" border="1">
+  $output = '<table class="table table-responsive" border="1">
                <tr>
                  <th>Id</th>
                  <th>Name</th>
@@ -19,20 +19,20 @@ if (mysqli_num_rows($result) > 0) {
                  <th colspan="2">Action</th>
                </tr>';
 
-    while ($row = mysqli_fetch_assoc($result)) {
-      // echo "<pre>";
-      // print_r($row);
-        $imageNames = explode(',', $row["image_names"]);
-        // echo "<pre>";
-        // print_r($imageNames);
-        $imageHtml = "";
-        foreach ($imageNames as $imageName) {
-            $imageUrl = './upload/' . $imageName; // Modify the URL according to your image location
-            $imageUrl .='?'.time();
-            $imageHtml .= "<img src='$imageUrl' alt='No image found' height='120px' width='120px'/><br>";
-        }
+  while ($row = mysqli_fetch_assoc($result)) {
+    // echo "<pre>";
+    // print_r($row);
+    $imageNames = explode(',', $row["image_names"]);
+    // echo "<pre>";
+    // print_r($imageNames);
+    $imageHtml = "";
+    foreach ($imageNames as $imageName) {
+      $imageUrl = './upload/' . $imageName;
+      $imageUrl .= '?' . time();
+      $imageHtml .= "<img src='$imageUrl' alt='No image found' height='120px' width='120px'/><br>";
+    }
 
-        $output .= "
+    $output .= "
                 <tr>
                   <td>{$row["userid"]}</td>
                   <td>{$row["name"]}</td>
@@ -48,11 +48,11 @@ if (mysqli_num_rows($result) > 0) {
                   <button class='deletebtn btn btn-danger' data-did='{$row["userid"]}'>Delete</button>
                  </td>
                 </tr>";
-    }
-    $output .= '</table>';
-    echo $output;
+  }
+  $output .= '</table>';
+  echo $output;
 } else {
-    $output = '<table class="table table-responsive" border="1">
+  $output = '<table class="table table-responsive" border="1">
     <tr>
       <th>Id</th>
       <th>Name</th>
@@ -65,6 +65,5 @@ if (mysqli_num_rows($result) > 0) {
     <td colspan="4"> No Data Found </td>
     </tr>
 </table>';
-    echo $output;
+  echo $output;
 }
-?>
