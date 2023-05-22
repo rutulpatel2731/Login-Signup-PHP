@@ -3,43 +3,43 @@ $(document).ready(function () {
     // insert data
     $("#form").on("submit", function (e) {
         e.preventDefault();
-        // jQuery('#form').validate({
-        //     rules: {
-        //         name: "required",
-        //         mobileno: {
-        //             required: true,
-        //             digits: true,
-        //             minlength: 10,
-        //             maxlength: 10
-        //         },
-        //         gender: {
-        //             required: true,
-        //         },
-        //         profile: {
-        //             accept: "jpg,jpeg,png,gif"
-        //         }
-        //     },
-        //     messages: {
-        //         name: "Please Enter Name..",
-        //         mobile: {
-        //             required: "Please Enter Mobile Number.",
-        //             number: "Please enter number only.."
-        //         },
-        //         gender: {
-        //             required: "Please Select Gender..",
-        //         },
-        //         profile: {
-        //             accept: "Only Support JPEG/JPG/PNG format.."
-        //         }
-        //     },
-        //     errorPlacement: function(error, element) {
-        //         if (element.is(":radio")) {
-        //             error.appendTo('.Gender');
-        //         } else {
-        //             error.insertAfter(element);
-        //         }
-        //     },
-        // })
+        jQuery('#form').validate({
+            rules: {
+                name: "required",
+                mobileno: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                gender: {
+                    required: true,
+                },
+                "profile[]": {
+                    accept: "jpg,jpeg,png,gif"
+                }
+            },
+            messages: {
+                name: "Please Enter Name..",
+                mobile: {
+                    required: "Please Enter Mobile Number.",
+                    number: "Please enter number only.."
+                },
+                gender: {
+                    required: "Please Select Gender..",     
+                },
+                "profile[]": {
+                    accept: "Only Support JPEG/JPG/PNG format.."
+                }
+            },
+            errorPlacement: function(error, element) {
+                if (element.is(":radio")) {
+                    error.appendTo('.Gender');
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+        })
         if ($("#form").valid()) {
             var token = $("#userId").val();
             // console.log(token)
@@ -140,7 +140,7 @@ $(document).ready(function () {
             type: "POST",
             data: { studentId: sId },
             success: function (returnData) {
-                // console.log(returnData)
+                console.log(returnData)
                 var data = JSON.parse(returnData);
                 console.log(data);
                 let gender = data[0].gender;
