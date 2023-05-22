@@ -59,3 +59,15 @@
     height: 150px;
     padding: 10px;
 }
+
+.crossIcon{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: white;
+    background: black;
+    border-radius: 50%;
+    width: 19px;
+    text-align: center;
+    height: 21px;
+}

@@ -55,7 +55,7 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (returnData) {
-                  // console.log(returnData)
+                    console.log(returnData)
                     var data = JSON.parse(returnData);
                     if (data.status == "success") {
                         $("#success-alert").removeClass('d-none');
@@ -133,40 +133,6 @@ $(document).ready(function () {
 
 
 
-    //update data
-    // $(document).on("click", "#updatebtn", function() {
-    //         var sId = $(this).data("uid");
-    //         // console.log(sId);
-    //         $.ajax({
-    //             url: "update-fetch.php",
-    //             type: "POST",
-    //             data: { studentId: sId },
-    //             success: function(returnData) {
-    //                 // console.log(returnData);
-    //                 var data = JSON.parse(returnData);
-    //                 console.log(data);
-    //                 let gender = data[0].gender;
-    //                 $("#userId").val(data[0].userid);
-    //                 $("#name").val(data[0].name);
-    //                 $("#mobileno").val(data[0].mobileno);
-    //                 $("input[name='gender'][value=" + gender + "]").prop('checked', true);
-    //                 // $("#profile").attr("value", data.image);
-    //                 // // Display the image preview
-    //                 var img = document.createElement("img");
-    //                 img.src = "./upload/" + data[1][1];
-    //                 var previewContainer = document.getElementById("gallery");
-    //                 previewContainer.appendChild(img);
-    //                 // $("#preview").attr("src", "./upload/" + data.image[1]);
-
-    //                 // // Hide or show the preview buttons
-    //                 // $("#image-preview").show();
-    //                 // $("#cancleImage").hide();
-    //                 // // Hide & show Insert update buttons
-    //                 // $("#insertBtn").hide();
-    //                 // $("#updateDataBtn").show();
-    //             }
-    //         })
-    //     })
     $(document).on("click", "#updatebtn", function () {
         var sId = $(this).data("uid");
         $.ajax({
@@ -174,6 +140,7 @@ $(document).ready(function () {
             type: "POST",
             data: { studentId: sId },
             success: function (returnData) {
+                // console.log(returnData)
                 var data = JSON.parse(returnData);
                 console.log(data);
                 let gender = data[0].gender;
@@ -182,15 +149,19 @@ $(document).ready(function () {
                 $("#mobileno").val(data[0].mobileno);
                 $("input[name='gender'][value=" + gender + "]").prop('checked', true);
 
-                // Clear the previous image previews
+                // // Clear the previous image previews
                 $("#main").removeClass('d-none');
                 $("#gallery").empty();
 
                 // Generate image previews with cross icons
                 data[1].forEach(function (imageName) {
+                    var imgId = imageName.id;
                     var imgContainer = $("<div>").addClass("image-container");
-                    var img = $("<img>").attr("src", "./upload/" + imageName);
-                    imgContainer.append(img);
+                    var img = $("<img>").attr("src", "./upload/" + imageName.imgname);
+                    var cross = $("<span>").attr({ class: "crossIcon", id: imgId }).text("X").click(function () {
+                        deleteImage(imgId);
+                    });
+                    imgContainer.append(img, cross);
                     $("#gallery").append(imgContainer);
                 });
 
@@ -200,4 +171,22 @@ $(document).ready(function () {
             }
         });
     });
+
+    function deleteImage(imgId) {
+        var imageId = imgId;
+        // console.log(imageId);
+        $.ajax({
+            url: "deleteimage.php",
+            type: "POST",
+            data: { iId: imageId },
+            success: function (returnData) {
+                //console.log(returnData);
+                var data = JSON.parse(returnData);
+                $("#success-alert").removeClass('d-none');
+                $("#success-msg").html(data.message);
+                $("#" + imageId).parent().remove();
+            }
+        })
+    }
+
 });

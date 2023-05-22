@@ -6,7 +6,7 @@ $mobileNo = $_POST['mobileno'];
 $gender = $_POST['gender'];
 $imgName = $_FILES['profile']['name'];
 $countImage = count($imgName);
-// print_r($_FILES);
+// print_r($_FILES['profile']['name'][0]);
 // echo $countImage;
 
 if (($_FILES['profile']['name'][0]) !== "") {
