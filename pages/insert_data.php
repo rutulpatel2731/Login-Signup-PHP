@@ -9,12 +9,12 @@ $skill = $_POST['skill'];
 $skillValue = implode(" , ",$skill);
 // echo "<pre>";
 // print_r($_FILES['profile']);
-
+$country = $_POST['country'];
 $countImage = count($_FILES['profile']['name']);
 // echo $countImage;
 
-$sql = "insert into employee (name,mobileno,gender,skill,CreatedAt) 
-VALUES ('$name','$mobile','$gender','$skillValue',CURRENT_TIMESTAMP())";
+$sql = "insert into employee (name,mobileno,gender,skill,country,CreatedAt) 
+VALUES ('$name','$mobile','$gender','$skillValue','$country',CURRENT_TIMESTAMP())";
 $result = mysqli_query($conn, $sql);
 if ($result) {
   $lastId =  mysqli_insert_id($conn);

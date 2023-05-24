@@ -89,6 +89,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         </div>
                     </div>
 
+                    <div class="form-group my-2">
+                        <label for="" class="py-2">Select Your Skills</label>
+                        <select class="form-select" name="country" id="country">
+                            <option selected disabled>Select Country</option>
+                            <option value="India">India</option>
+                            <option value="USA">USA</option>
+                            <option value="UK">UK</option>
+                        </select>
+                    </div>
+
 
                     <div class="form-group my-2">
                         <label for="" class="py-2">Select Profile Picture</label>
@@ -99,7 +109,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                             </div>
                         </div>
                     </div>
-
 
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary" id="insertBtn">Submit</button>
@@ -120,7 +129,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
 
         <div id="table-data" class="mt-5"></div>
     </section>
-
     <!-- bootstrap js -->
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>

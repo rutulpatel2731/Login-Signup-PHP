@@ -123,7 +123,8 @@ $(document).ready(function () {
             url: "update-fetch.php",
             type: "POST",
             data: { studentId: sId },
-            success: function (returnData) {    
+            success: function (returnData) {   
+                console.log(returnData); 
                 $("#gallery").html('');
                 $("input:checkbox").prop('checked',false);
 
@@ -157,7 +158,7 @@ $(document).ready(function () {
                     imgContainer.append(img, cross);
                     $("#gallery").append(imgContainer);
                 });
-
+                $("#country").val(data[0].country);
                 // Show the update button and hide the insert button
                 $("#insertBtn").addClass('d-none');
                 $("#updateDataBtn").removeClass('d-none');
