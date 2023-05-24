@@ -87,9 +87,6 @@ $(document).ready(function () {
                         $("#error-alert").removeClass("d-none");
                         $("#error-msg").html(data.message);
                     }
-
-
-                    console.log(data);
                 }
             })
         }

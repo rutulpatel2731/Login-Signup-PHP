@@ -124,9 +124,10 @@ $(document).ready(function () {
             type: "POST",
             data: { studentId: sId },
             success: function (returnData) {
-                console.log(returnData)
+                $("#gallery").html('');
+                //console.log(returnData)
                 var data = JSON.parse(returnData);
-                console.log(data);
+                //console.log(data);
                 let gender = data[0].gender;
                 $("#userId").val(data[0].userid);
                 $("#name").val(data[0].name);
@@ -137,14 +138,18 @@ $(document).ready(function () {
                 // create dynamic image preview
                 data[1].forEach(function (imageName) {
                     var imgId = imageName.id;
+                    console.log(imgId)
                     var imgContainer = $("<div>").addClass("image-container");
                     var img = $("<img>").attr("src", "./upload/" + imageName.imgname);
-                    var cross = $("<span>").attr({ class: "crossIcon", id: imgId }).text("X").click(function () {
-                        deleteImage(imgId);
-                    });
+                    var cross = $("<span>")
+                        .attr({ class: "crossIcon", id: imgId })
+                        .text("X").click(function () {
+                            deleteImage(imgId);
+                        });
                     imgContainer.append(img, cross);
                     $("#gallery").append(imgContainer);
                 });
+
                 // Show the update button and hide the insert button
                 $("#insertBtn").addClass('d-none');
                 $("#updateDataBtn").removeClass('d-none');
@@ -166,6 +171,7 @@ $(document).ready(function () {
                 $("#success-alert").removeClass('d-none');
                 $("#success-msg").html(data.message);
                 $("#" + imageId).parent().remove();
+                loadTableData();
             }
         })
     }

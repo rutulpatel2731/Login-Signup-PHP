@@ -8,13 +8,13 @@ $row =  mysqli_fetch_assoc($result);
 //print_r($row);
 array_push($response,$row);
 
-$qry = "select id,imgname from image where userid='$studId'";
+$qry = "select id,imgname,userid from image where userid='$studId'";
 $result = mysqli_query($conn,$qry);
 $images = mysqli_fetch_all($result,MYSQLI_ASSOC);
+// print_r($images);
+// $images = mysqli_fetch_array($result,MYSQLI_ASSOC);
+// print_r($images);
  
 array_push($response,$images);
-// $imageNames = explode(',', $row1["image_names"]);
-// print_r($imageNames);   
-// print_r($response);
 echo json_encode($response);
 ?>
