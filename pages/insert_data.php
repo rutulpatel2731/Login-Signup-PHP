@@ -5,13 +5,16 @@ include_once '../connection/connection.php';
 $name = $_POST['name'];
 $mobile = $_POST['mobileno'];
 $gender = $_POST['gender'];
+$skill = $_POST['skill'];
+$skillValue = implode(" , ",$skill);
 // echo "<pre>";
 // print_r($_FILES['profile']);
+
 $countImage = count($_FILES['profile']['name']);
 // echo $countImage;
 
-$sql = "insert into employee (name,mobileno,gender,CreatedAt) 
-VALUES ('$name','$mobile','$gender',CURRENT_TIMESTAMP())";
+$sql = "insert into employee (name,mobileno,gender,skill,CreatedAt) 
+VALUES ('$name','$mobile','$gender','$skillValue',CURRENT_TIMESTAMP())";
 $result = mysqli_query($conn, $sql);
 if ($result) {
   $lastId =  mysqli_insert_id($conn);

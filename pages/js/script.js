@@ -3,43 +3,43 @@ $(document).ready(function () {
     // insert data
     $("#form").on("submit", function (e) {
         e.preventDefault();
-        jQuery('#form').validate({
-            rules: {
-                name: "required",
-                mobileno: {
-                    required: true,
-                    digits: true,
-                    minlength: 10,
-                    maxlength: 10
-                },
-                gender: {
-                    required: true,
-                },
-                "profile[]": {
-                    accept: "jpg,jpeg,png,gif"
-                }
-            },
-            messages: {
-                name: "Please Enter Name..",
-                mobile: {
-                    required: "Please Enter Mobile Number.",
-                    number: "Please enter number only.."
-                },
-                gender: {
-                    required: "Please Select Gender..",
-                },
-                "profile[]": {
-                    accept: "Only Support JPEG/JPG/PNG format.."
-                }
-            },
-            errorPlacement: function (error, element) {
-                if (element.is(":radio")) {
-                    error.appendTo('.Gender');
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-        })
+        // jQuery('#form').validate({
+        //     rules: {
+        //         name: "required",
+        //         mobileno: {
+        //             required: true,
+        //             digits: true,
+        //             minlength: 10,
+        //             maxlength: 10
+        //         },
+        //         gender: {
+        //             required: true,
+        //         },
+        //         "profile[]": {
+        //             accept: "jpg,jpeg,png,gif"
+        //         }
+        //     },
+        //     messages: {
+        //         name: "Please Enter Name..",
+        //         mobile: {
+        //             required: "Please Enter Mobile Number.",
+        //             number: "Please enter number only.."
+        //         },
+        //         gender: {
+        //             required: "Please Select Gender..",
+        //         },
+        //         "profile[]": {
+        //             accept: "Only Support JPEG/JPG/PNG format.."
+        //         }
+        //     },
+        //     errorPlacement: function (error, element) {
+        //         if (element.is(":radio")) {
+        //             error.appendTo('.Gender');
+        //         } else {
+        //             error.insertAfter(element);
+        //         }
+        //     },
+        // })
         if ($("#form").valid()) {
             var token = $("#userId").val();
             // console.log(token)
@@ -55,7 +55,7 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (returnData) {
-                    console.log(returnData)
+                    //  console.log(returnData);
                     var data = JSON.parse(returnData);
                     if (data.status == "success") {
                         $("#success-alert").removeClass('d-none');
@@ -123,16 +123,24 @@ $(document).ready(function () {
             url: "update-fetch.php",
             type: "POST",
             data: { studentId: sId },
-            success: function (returnData) {
+            success: function (returnData) {    
                 $("#gallery").html('');
-                //console.log(returnData)
+                $("input:checkbox").prop('checked',false);
+
                 var data = JSON.parse(returnData);
-                //console.log(data);
+                console.log(data);
                 let gender = data[0].gender;
                 $("#userId").val(data[0].userid);
                 $("#name").val(data[0].name);
                 $("#mobileno").val(data[0].mobileno);
                 $("input[name='gender'][value=" + gender + "]").prop('checked', true);
+
+                //fetch checkbox value
+                for (var i = 0; i < data[0]['skill'].length; i++) {
+                    var checkboxValue = data[0]['skill'][i];
+                    $("#" + checkboxValue).prop('checked', true);               
+                }
+               
                 // for image fetch
                 $("#main").removeClass('d-none');
                 // create dynamic image preview

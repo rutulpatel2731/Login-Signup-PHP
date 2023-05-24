@@ -1,7 +1,7 @@
 <?php
 include_once '../connection/connection.php';
 
-$sql = "SELECT e.userid, e.name, e.mobileno, e.gender, GROUP_CONCAT(i.imgname) AS image_names
+$sql = "SELECT e.userid, e.name, e.mobileno, e.gender,e.skill, GROUP_CONCAT(i.imgname) AS image_names
 FROM employee e
 LEFT JOIN image i ON e.userid = i.userid
 GROUP BY e.userid, e.name, e.mobileno, e.gender;";
@@ -15,6 +15,7 @@ if (mysqli_num_rows($result) > 0) {
                  <th>Name</th>
                  <th>Mobile Number</th>
                  <th>Gender</th>
+                 <th>Skills<th>
                  <th>Image</th>
                  <th colspan="2">Action</th>
                </tr>';
@@ -38,6 +39,7 @@ if (mysqli_num_rows($result) > 0) {
                   <td>{$row["name"]}</td>
                   <td>{$row["mobileno"]}</td>
                   <td>{$row["gender"]}</td>
+                  <td>{$row["skill"]}</td>
                   <td class='table-img'>
                     $imageHtml
                   </td>

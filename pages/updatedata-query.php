@@ -4,13 +4,15 @@ $userid = $_POST['userId'];
 $userName = $_POST['name'];
 $mobileNo = $_POST['mobileno'];
 $gender = $_POST['gender'];
+$skill = $_POST['skill'];
+$skillValue = implode(" , ",$skill);
 $imgName = $_FILES['profile']['name'];
 $countImage = count($imgName);
 // print_r($_FILES['profile']['name'][0]);
 // echo $countImage;
 
 if (($_FILES['profile']['name'][0]) !== "") {
-    $sql = "UPDATE `employee` SET `name`= '$userName',`mobileno`='$mobileNo',`gender`='$gender' WHERE userid = '$userid'";
+    $sql = "UPDATE `employee` SET `name`= '$userName',`mobileno`='$mobileNo',`gender`='$gender',`skill`='$skillValue' WHERE userid = '$userid'";
     $result = mysqli_query($conn, $sql);
 
     for ($i = 0; $i < $countImage; $i++) {
@@ -26,7 +28,7 @@ if (($_FILES['profile']['name'][0]) !== "") {
         "message" => "Your Record Has Been Updated."
     ));
 } else {
-    $sql = "UPDATE `employee` SET `name`= '$userName',`mobileno`='$mobileNo',`gender`='$gender' WHERE userid = '$userid'";
+    $sql = "UPDATE `employee` SET `name`= '$userName',`mobileno`='$mobileNo',`gender`='$gender',`skill`='$skillValue' WHERE userid = '$userid'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         echo json_encode(array(

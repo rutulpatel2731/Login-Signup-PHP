@@ -61,6 +61,34 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="" class="py-2">Select Your Skills</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="HTML" name="skill[]" value="HTML">
+                            <label class="form-check-label">HTML</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="CSS" name="skill[]" value="CSS">
+                            <label class="form-check-label">CSS</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="jQuery" name="skill[]" value="jQuery">
+                            <label class="form-check-label">jQuery</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="PHP" name="skill[]" value="PHP">
+                            <label class="form-check-label">PHP</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="Laravel" name="skill[]" value="Laravel">
+                            <label class="form-check-label">Laravel</label>
+                        </div>
+                    </div>
+
 
                     <div class="form-group my-2">
                         <label for="" class="py-2">Select Profile Picture</label>

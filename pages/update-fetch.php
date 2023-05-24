@@ -5,12 +5,14 @@ $response = array();
 $sql = "select * from employee where userid='$studId'";
 $result = mysqli_query($conn,$sql);
 $row =  mysqli_fetch_assoc($result);
+$row['skill'] = explode(" , ", $row['skill']);
 //print_r($row);
 array_push($response,$row);
 
 $qry = "select id,imgname,userid from image where userid='$studId'";
 $result = mysqli_query($conn,$qry);
 $images = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
 // print_r($images);
 // $images = mysqli_fetch_array($result,MYSQLI_ASSOC);
 // print_r($images);
