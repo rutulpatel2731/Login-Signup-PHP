@@ -115,7 +115,6 @@ $(document).ready(function () {
         });
     })
 
-
     // edit button ajax 
     $(document).on("click", "#updatebtn", function () {
         var sId = $(this).data("uid");
@@ -158,6 +157,8 @@ $(document).ready(function () {
                     imgContainer.append(img, cross);
                     $("#gallery").append(imgContainer);
                 });
+                $("#city").val(data[0].city);
+                $("#state").val(data[0].state);
                 $("#country").val(data[0].country);
                 // Show the update button and hide the insert button
                 $("#insertBtn").addClass('d-none');

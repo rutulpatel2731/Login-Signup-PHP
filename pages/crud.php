@@ -89,16 +89,40 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                         </div>
                     </div>
 
-                    <div class="form-group my-2">
-                        <label for="" class="py-2">Select Your Skills</label>
+                    <!-- <div class="form-group my-2">
+                        <label for="" class="py-2">Select Your Country</label>
                         <select class="form-select" name="country" id="country">
                             <option selected disabled>Select Country</option>
                             <option value="India">India</option>
                             <option value="USA">USA</option>
                             <option value="UK">UK</option>
                         </select>
+                    </div> -->
+
+
+                    <div class="form-group my-3">
+                        <label for="">Select Country</label>
+                        <select class="form-select my-2" aria-label="Default select example" name="country" id="country" >
+                            <option selected disabled>Select Country</option>
+                            <option value="india">India</option>
+                            <option value="usa">USA</option>
+                        </select>
                     </div>
 
+                    <div class="form-group my-3">
+                        <label for="">Select State</label>
+                        <select class="form-select my-2" aria-label="Default select example" name="state" id="state">
+                            <option>Select State</option>
+                        </select>
+                        </select>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label for="">Select City</label>
+                        <select class="form-select my-2" aria-label="Default select example" name="city" id="city">
+                            <option>Select City</option>
+                        </select>
+                    </div>
 
                     <div class="form-group my-2">
                         <label for="" class="py-2">Select Profile Picture</label>
@@ -143,6 +167,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     <script src="../js/additional-methods.js"></script>
     <!-- Custom Js -->
     <script src="js/script.js"></script>
+    <!-- dropdown Js -->
+    <script src="js/dropdown.js"></script>
     <script>
         var imagesPreview = function(input, placeToInsertImagePreview) {
 
