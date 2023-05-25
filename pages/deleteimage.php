@@ -1,7 +1,6 @@
 <?php
 include_once '../connection/connection.php';
 $imgId = $_POST['iId'];
-// echo $imgId;
 
 $query = "SELECT imgname FROM image WHERE id = '$imgId'";
 $result = mysqli_query($conn, $query);

@@ -64,7 +64,7 @@ $result = mysqli_query($conn, $sql);
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group Skills">
                         <label for="" class="py-2">Select Your Skills</label>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="HTML" name="skill[]" value="HTML">
@@ -101,10 +101,11 @@ $result = mysqli_query($conn, $sql);
                             <option value="UK">UK</option>
                         </select>
                     </div> -->
+
                     <div class="form-group my-4">
                         <label for="" class="py-2">Select Your Country</label>
                         <select class="form-select" name="country" id="country">
-                            <option selected>Select Country</option>
+                            <option selected disabled>Select Country</option>
                             <?php
                             while ($countryData = mysqli_fetch_assoc($result)) {
                             ?>
@@ -120,7 +121,7 @@ $result = mysqli_query($conn, $sql);
                     <div class="form-group my-4">
                         <label for="" class="py-2">Select State</label>
                         <select class="form-select" name="state" id="state">
-                            <option selected>Select State</option>
+                            <option selected disabled>Select State</option>
                         </select>
                     </div>
 
@@ -137,6 +138,7 @@ $result = mysqli_query($conn, $sql);
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary" id="insertBtn">Submit</button>
                         <button type="submit" class="btn btn-primary d-none" id="updateDataBtn">Update</button>
+                        <button type="submit" class="btn btn-primary d-none ms-3" id="cancleBtn">Cancle</button>
                     </div>
                 </form>
 

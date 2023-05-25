@@ -9,14 +9,13 @@ $skill = $_POST['skill'];
 $skillValue = implode(" , ",$skill);
 // echo "<pre>";
 // print_r($_FILES['profile']);
-$city = $_POST['city'];
 $state = $_POST['state'];
 $country = $_POST['country'];
 $countImage = count($_FILES['profile']['name']);
 // echo $countImage;
 
-$sql = "insert into employee (name,mobileno,gender,skill,city,state,country,CreatedAt) 
-VALUES ('$name','$mobile','$gender','$skillValue','$city','$state','$country',CURRENT_TIMESTAMP())";
+$sql = "insert into employee (name,mobileno,gender,skill,state,country,CreatedAt) 
+VALUES ('$name','$mobile','$gender','$skillValue','$state','$country',CURRENT_TIMESTAMP())";
 $result = mysqli_query($conn, $sql);
 if ($result) {
   $lastId =  mysqli_insert_id($conn);

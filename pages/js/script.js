@@ -3,46 +3,81 @@ $(document).ready(function () {
     // insert data
     $("#form").on("submit", function (e) {
         e.preventDefault();
-        // jQuery('#form').validate({
-        //     rules: {
-        //         name: "required",
-        //         mobileno: {
-        //             required: true,
-        //             digits: true,
-        //             minlength: 10,
-        //             maxlength: 10
-        //         },
-        //         gender: {
-        //             required: true,
-        //         },
-        //         "profile[]": {
-        //             accept: "jpg,jpeg,png,gif"
-        //         }
-        //     },
-        //     messages: {
-        //         name: "Please Enter Name..",
-        //         mobile: {
-        //             required: "Please Enter Mobile Number.",
-        //             number: "Please enter number only.."
-        //         },
-        //         gender: {
-        //             required: "Please Select Gender..",
-        //         },
-        //         "profile[]": {
-        //             accept: "Only Support JPEG/JPG/PNG format.."
-        //         }
-        //     },
-        //     errorPlacement: function (error, element) {
-        //         if (element.is(":radio")) {
-        //             error.appendTo('.Gender');
-        //         } else {
-        //             error.insertAfter(element);
-        //         }
-        //     },
-        // })
+        $.validator.addMethod('regexp', function (value, element) {
+            var name = $("#name").val();
+            if (!/^[a-z A-Z]+$/.test(name)) {
+                return false;
+            } else {
+                return true;
+            }
+        }, "Please Enter Valid Name");
+
+        jQuery('#form').validate({
+            rules: {
+                name: {
+                    required: true,
+                    regexp: true,
+                    // lettersonly:true,
+                },
+                mobileno: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                gender: {
+                    required: true,
+                },
+                "skill[]": {
+                    required: true,
+                },
+                country: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                "profile[]": {
+                    accept: "jpg,jpeg,png,gif"
+                },
+
+            },
+            messages: {
+                name: {
+                    required: "Please Enter Name"
+                },
+                mobile: {
+                    required: "Please Enter Mobile Number.",
+                    number: "Please enter number only.."
+                },
+                gender: {
+                    required: "Please Select Gender..",
+                },
+                "skill[]": {
+                    required: "Please Select Your Skills",
+                },
+                country: {
+                    required: "Please Select Your Country",
+                },
+                state: {
+                    required: "Please Select Your State",
+                },
+                "profile[]": {
+                    accept: "Only Support JPEG/JPG/PNG format.."
+                },
+            },
+            errorPlacement: function (error, element) {
+                if (element.is(":radio")) {
+                    error.appendTo('.Gender');
+                } else if (element.is(":checkbox")) {
+                    error.appendTo('.Skills');
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+        })
         if ($("#form").valid()) {
             var token = $("#userId").val();
-            // console.log(token)
             if (token != 'null') {
                 var link = 'updatedata-query.php';
             } else {
@@ -55,7 +90,6 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (returnData) {
-                    //  console.log(returnData);
                     var data = JSON.parse(returnData);
                     if (data.status == "success") {
                         $("#success-alert").removeClass('d-none');
@@ -64,6 +98,7 @@ $(document).ready(function () {
                         $("#form").trigger("reset");
                         $("#updateDataBtn").addClass('d-none');
                         $("#insertBtn").removeClass('d-none');
+                        $("#cancleBtn").addClass('d-none');
                         loadTableData();
                     } else {
                         $("#error-alert").removeClass('d-none');
@@ -74,7 +109,7 @@ $(document).ready(function () {
         }
     })
 
-    // fetch data
+    // fetch data In table
     function loadTableData() {
         $.ajax({
             url: "fetch_data.php",
@@ -91,7 +126,6 @@ $(document).ready(function () {
     // delete data
     $(document).on("click", ".deletebtn", function () {
         var did = $(this).data("did");
-        // console.log(eid);
         bootbox.confirm("Are you sure you want to delete record ??? ", function (result) {
             if (result) {
                 $.ajax({
@@ -123,12 +157,11 @@ $(document).ready(function () {
             type: "POST",
             data: { studentId: sId },
             success: function (returnData) {
-                console.log(returnData);
                 $("#gallery").html('');
                 $("input:checkbox").prop('checked', false);
 
                 var data = JSON.parse(returnData);
-                console.log(data);
+
                 let gender = data[0].gender;
                 $("#userId").val(data[0].userid);
                 $("#name").val(data[0].name);
@@ -157,26 +190,45 @@ $(document).ready(function () {
                     imgContainer.append(img, cross);
                     $("#gallery").append(imgContainer);
                 });
-                $("#city").val(data[0].city);
-                $("#state").val(data[0].state);
+
+                // getting dropdown value
+                let str = "";
+                data[0][0].forEach((state) => {
+                    if (state[0] !== data[0].state)
+                        str += `<option value='${state[0]}'>${state[0]}</option>`;
+                    else
+                        str += `<option value='${state[0]}' selected>${state[0]}</option>`;
+                })
+                $("#state").append(str);
                 $("#country").val(data[0].country);
+
                 // Show the update button and hide the insert button
                 $("#insertBtn").addClass('d-none');
                 $("#updateDataBtn").removeClass('d-none');
+                $("#cancleBtn").removeClass('d-none');
             }
         });
     });
 
+    // cancel button at time of update
+    $(document).on("click", "#cancleBtn", function (e) {
+        e.preventDefault();
+        $("#form")[0].reset();
+        $("#updateDataBtn").addClass('d-none');
+        $("#cancleBtn").addClass('d-none');
+        $("#main").addClass('d-none');
+        $("#insertBtn").removeClass('d-none');
+        $("#state").html('<option selected>Select State</option>');
+    })
+
     // function for delete specific image at the time of edit
     function deleteImage(imgId) {
         var imageId = imgId;
-        // console.log(imageId);
         $.ajax({
             url: "deleteimage.php",
             type: "POST",
             data: { iId: imageId },
             success: function (returnData) {
-                //console.log(returnData);
                 var data = JSON.parse(returnData);
                 $("#success-alert").removeClass('d-none');
                 $("#success-msg").html(data.message);
@@ -194,17 +246,9 @@ $(document).ready(function () {
         $("#error-alert").addClass('d-none');
     })
 
-    // image close button onclick
-    $("#cancleImage").on("click", function (e) {
-        e.preventDefault();
-        $("#image-preview").hide();
-        $("#profile").val("");
-    })
-
-
+    // dependent dropdown Ajax
     $("#country").change(function () {
         var name = $(this).val();
-        //    alert(name);
         $.ajax({
             type: "POST",
             url: "getcity.php",
