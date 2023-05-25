@@ -122,10 +122,10 @@ $(document).ready(function () {
             url: "update-fetch.php",
             type: "POST",
             data: { studentId: sId },
-            success: function (returnData) {   
-                console.log(returnData); 
+            success: function (returnData) {
+                console.log(returnData);
                 $("#gallery").html('');
-                $("input:checkbox").prop('checked',false);
+                $("input:checkbox").prop('checked', false);
 
                 var data = JSON.parse(returnData);
                 console.log(data);
@@ -138,9 +138,9 @@ $(document).ready(function () {
                 //fetch checkbox value
                 for (var i = 0; i < data[0]['skill'].length; i++) {
                     var checkboxValue = data[0]['skill'][i];
-                    $("#" + checkboxValue).prop('checked', true);               
+                    $("#" + checkboxValue).prop('checked', true);
                 }
-               
+
                 // for image fetch
                 $("#main").removeClass('d-none');
                 // create dynamic image preview
@@ -200,4 +200,20 @@ $(document).ready(function () {
         $("#image-preview").hide();
         $("#profile").val("");
     })
+
+
+    $("#country").change(function () {
+        var name = $(this).val();
+        //    alert(name);
+        $.ajax({
+            type: "POST",
+            url: "getcity.php",
+            data: { countryName: name },
+            success: function (response) {
+                console.log(response);
+                $("#state").empty();
+                $("#state").html(response);
+            }
+        });
+    });
 });

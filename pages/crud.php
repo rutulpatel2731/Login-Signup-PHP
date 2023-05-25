@@ -5,6 +5,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     $_SESSION['accessFail'] = "Access Denied";
     header('location:../login.php');
 }
+
+$sql = "select * from country";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -98,29 +101,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
                             <option value="UK">UK</option>
                         </select>
                     </div> -->
-
-
-                    <div class="form-group my-3">
-                        <label for="">Select Country</label>
-                        <select class="form-select my-2" aria-label="Default select example" name="country" id="country" >
-                            <option selected disabled>Select Country</option>
-                            <option value="india">India</option>
-                            <option value="usa">USA</option>
+                    <div class="form-group my-4">
+                        <label for="" class="py-2">Select Your Country</label>
+                        <select class="form-select" name="country" id="country">
+                            <option selected>Select Country</option>
+                            <?php
+                            while ($countryData = mysqli_fetch_assoc($result)) {
+                            ?>
+                                <option value="<?php echo $countryData['c_name']; ?>">
+                                    <?php echo $countryData['c_name'];  ?>
+                                </option>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </div>
 
-                    <div class="form-group my-3">
-                        <label for="">Select State</label>
-                        <select class="form-select my-2" aria-label="Default select example" name="state" id="state">
-                            <option>Select State</option>
-                        </select>
-                        </select>
-                    </div>
-
-                    <div class="form-group my-3">
-                        <label for="">Select City</label>
-                        <select class="form-select my-2" aria-label="Default select example" name="city" id="city">
-                            <option>Select City</option>
+                    <div class="form-group my-4">
+                        <label for="" class="py-2">Select State</label>
+                        <select class="form-select" name="state" id="state">
+                            <option selected>Select State</option>
                         </select>
                     </div>
 
@@ -167,8 +167,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != "true") {
     <script src="../js/additional-methods.js"></script>
     <!-- Custom Js -->
     <script src="js/script.js"></script>
-    <!-- dropdown Js -->
-    <script src="js/dropdown.js"></script>
     <script>
         var imagesPreview = function(input, placeToInsertImagePreview) {
 
