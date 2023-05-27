@@ -38,6 +38,10 @@ if ($login) {
     </li>
 
     <li class="nav-item">
+                    <a class="nav-link" href="ImportCSV.php">Import CSV</a>
+    </li>
+
+    <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>';
 }
