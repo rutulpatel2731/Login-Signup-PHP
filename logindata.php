@@ -44,7 +44,6 @@ $showError = false;
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    // $captcha = $_POST['captcha'];
     if (isset($_POST["captcha"]) && isset($_SESSION["CAPTCHA_CODE"])) {
         $captcha =  filter_var($_POST["captcha"], FILTER_SANITIZE_STRING);
         if ($captcha != $_SESSION["CAPTCHA_CODE"]) {
@@ -60,12 +59,10 @@ if (isset($_POST['submit'])) {
     if ($num == 1) {
         $data = mysqli_fetch_assoc($result);
         if ($data["status"] == 1) {
-            // die($data["password"]);
             if (password_verify($password, $data['password'])) {
                 $sql = "delete from email_log where email='$email'";
                 $result = mysqli_query($conn, $sql);
                 $login = true;
-                // session_start();
                 $_SESSION['loggedin'] = true;
                 $_SESSION['id'] = $data['id'];
                 $_SESSION['name'] = $data['name'];
@@ -73,21 +70,18 @@ if (isset($_POST['submit'])) {
             } else {
                 $emailCount = "select email from email_log WHERE email='$email'";
                 $emailResult = mysqli_query($conn, $emailCount);
-                // die(mysqli_num_rows($emailResult));
                 if (mysqli_num_rows($emailResult) == 2) {
                     $token = bin2hex(random_bytes(16));
                     $sql = "update Registration set status=0,token='$token' where email='$email'";
                     if (mysqli_query($conn, $sql)) {
                         if (sendEmail($email, $token) === true) {
                             $_SESSION['msg'] = "Your Account Has Been Block Check Your Email To Unblock your Account.";
-                            // unset($_SESSION["counter"]);
                             header('location:login.php');
                             die();
                         }
                     }
                     $sql = "delete from email_log where email = '$email'";
                     $result = mysqli_query($conn, $sql);
-                    // header('location:login.php');
                 } else {
                     $sql = "insert into email_log (email) values('$email')";
                     $result = mysqli_query($conn, $sql);
@@ -107,6 +101,5 @@ if (isset($_POST['submit'])) {
     } else {
         $_SESSION['showError'] = "This Email Is Not Registered";
         header('location:login.php');
-        // $showError = "This Email Is Not Registered";
     }
 }
