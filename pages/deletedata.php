@@ -14,7 +14,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 };
 
-$sql = "delete from employee where userid ='$employeeId'";
+$sql = "delete from employee where userid = " . $employeeId;
 $result = mysqli_query($conn, $sql);
 if ($result) {
     echo json_encode(array(
